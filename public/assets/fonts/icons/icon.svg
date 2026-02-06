@@ -1,0 +1,23 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5fb34a"/>
+      <stop offset="100%" stop-color="#2f7d32"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="256" height="256" rx="32" fill="#f4efe6"/>
+
+  <!-- Roof -->
+  <path d="M48 128 L128 56 L208 128 Z" fill="#8b5a2b"/>
+
+  <!-- House -->
+  <rect x="72" y="128" width="112" height="80" rx="12" fill="#c68642"/>
+
+  <!-- Door -->
+  <rect x="112" y="152" width="32" height="56" rx="6" fill="#6b3f1d"/>
+
+  <!-- Leaf -->
+  <path d="M170 90 C210 70, 230 110, 190 140 C170 155,140 140,150 115 C155 100,165 95,170 90Z"
+        fill="url(#g)"/>
+</svg>
