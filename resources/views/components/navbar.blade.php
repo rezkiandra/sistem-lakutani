@@ -1,5 +1,4 @@
-<div class="navbar bg-wood shadow-sm"
-  style="background: url('{{ asset('assets/img/wood.png') }}'); background-position: center; background-size: cover;">
+<div class="navbar shadow-sm navImage absolute">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -16,19 +15,20 @@
             <li><a>Submenu 2</a></li>
           </ul>
         </li>
-        <li><a>Alat</a></li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl hover:bg-transparent">
+    <a class="btn btn-ghost text-xl hover:bg-transparent" href="{{ route('home') }}">
       <img src="{{ asset('assets/fonts/icons/icon.svg') }}" alt="" class="w-8">
-      <span class="font-bold text-slate-200">Lakutani</span>
+      <img src="{{ asset('assets/img/hero.png') }}" alt="" class="w-36">
     </a>
   </div>
 
   <div class="navbar-end gap-4">
     <ul class="menu menu-horizontal px-8">
-      <li class="font-bold text-slate-200"><a>Home</a></li>
       <li class="font-bold text-slate-200">
+        <a href="{{ route('home') }}">Home</a>
+      </li>
+      {{-- <li class="font-bold text-slate-200">
         <details>
           <summary>Berita</summary>
           <ul class="p-2 bg-base-100 w-40 z-1">
@@ -36,11 +36,13 @@
             <li class="font-bold text-slate-800"><a>Submenu 2</a></li>
           </ul>
         </details>
+      </li> --}}
+      <li class="font-bold text-slate-200">
+        <a href="{{ route('layanan') }}">Layanan</a>
       </li>
-      <li class="font-bold text-slate-200"><a>Alat</a></li>
     </ul>
 
-    <a class="btn bg-green-900 text-slate-200 border-green-950 border-2">Kelayakan</a>
-    <a class="btn bg-yellow-600 border-yellow-700 border-2">Login</a>
+    <a href="{{ route('login') }}" class="btn greenImage text-slate-200 border-green-950 border-2">Kelayakan</a>
+    <a href="{{ route('login') }}" class="btn bg-yellow-600 border-yellow-700 border-2">Login</a>
   </div>
 </div>

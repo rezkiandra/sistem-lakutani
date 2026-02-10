@@ -4,29 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ asset('assets/fonts/icons/icon.svg') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <title>@yield('title')</title>
-
-  <style>
-    @font-face {
-      font-family: 'Poppins';
-      src: url('{{ asset('assets/fonts/Poppins-Regular.ttf') }}') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-  </style>
   @stack('css')
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </shead>
 
-<body>
+<body class="bgImage">
   <div class="mx-auto">
     @include('components.navbar')
-
     @yield('content')
   </div>
 
