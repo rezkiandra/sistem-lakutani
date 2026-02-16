@@ -10,7 +10,7 @@
   <style>
     @font-face {
       font-family: 'Poppins';
-      src: url('{{ asset('assets/fonts/poppins/Poppins-Regular.ttf') }}') format('truetype');
+      src: url('{{ asset('assets/fonts/	poppins/Poppins-Regular.ttf') }}') format('truetype');
       font-weight: normal;
       font-style: normal;
     }
@@ -25,10 +25,23 @@
       background-size: 110%;
     }
 		
-		.cardImage {
-      background-image: url('{{ asset('assets/img/bg.png') }}');
-      background-position: right -60px center;
-      background-size: 250%;
+    .bgImage2 {
+      background-image: url('{{ asset('assets/img/bg2.png') }}');
+      background-position: top center;
+      background-size: cover;
+    }
+
+    .navImage {
+      background: url('{{ asset('assets/img/wood.png') }}');
+      background-position: top -10px center;
+      background-size: 10%;
+    }
+
+    .cardImage {
+      background-image: url('{{ asset('assets/img/bg2.png') }}');
+      background-position: top center;
+      background-size: cover;
+			background-repeat: no-repeat;
     }
 
     .woodImage {
@@ -37,21 +50,34 @@
       background-size: cover;
     }
 
+    .woodCardImage {
+      background: url('{{ asset('assets/img/wood.png') }}');
+      background-position: top -20px center;
+      background-size: cover;
+    }
+
     .greenImage {
       background: url('{{ asset('assets/img/green.png') }}');
       background-position: center;
       background-size: cover;
     }
+
+		.btnImage {
+			background: url('{{ asset('assets/img/yellow.png') }}');
+			background-position: center;
+			background-size: cover;
+		}
   </style>
   @stack('css')
 
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </shead>
 
-<body class="bgImage">
+<body class="bgImage2">
   <div class="mx-auto">
     @include('components.navbar')
     @yield('content')
+		@include('components.toast')
   </div>
 
   @stack('js')

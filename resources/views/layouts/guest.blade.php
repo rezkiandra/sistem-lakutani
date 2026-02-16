@@ -24,6 +24,12 @@
       background-position: center;
       background-size: 110%;
     }
+		
+    .bgImage2 {
+      background-image: url('{{ asset('assets/img/bg2.png') }}');
+      background-position: center;
+      background-size: 110%;
+    }
 
     .navImage {
       background: url('{{ asset('assets/img/wood.png') }}');
@@ -32,9 +38,9 @@
     }
 
     .cardImage {
-      background-image: url('{{ asset('assets/img/bg.png') }}');
-      background-position: right -60px center;
-      background-size: 250%;
+      background-image: url('{{ asset('assets/img/bg2.png') }}');
+      background-position: top -80px center;
+      background-size: cover;
     }
 
     .woodImage {
@@ -54,6 +60,12 @@
       background-position: center;
       background-size: cover;
     }
+
+		.btnImage {
+			background: url('{{ asset('assets/img/yellow.png') }}');
+			background-position: center;
+			background-size: cover;
+		}
   </style>
   @stack('css')
 
@@ -64,6 +76,7 @@
   <div class="mx-auto">
     @include('components.navbar')
     @yield('content')
+		@include('components.toast')
   </div>
 
   @stack('js')

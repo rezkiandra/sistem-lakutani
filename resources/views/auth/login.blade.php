@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.auth')
 @section('title', 'Login Akun')
 
 @section('content')
@@ -10,11 +10,28 @@
           <img src="{{ asset('assets/img/hero.png') }}" alt="" class="w-40 mx-auto my-4">
         </h2>
 
-        <label for="email" class="label text- text-base font-bold">Email</label>
-        <input type="email" class="input" placeholder="Type here" id="email" />
+        <div class="flex flex-col gap-4">
+          <form action="{{ route('signIn') }}" method="POST" class="flex flex-col gap-3">
+            @csrf
+            <div class="flex flex-col justify-center items-center gap-2">
+              <label for="email" class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Email</label>
+              <input type="email" name="email" class="input bg-[#f7e6bc]" placeholder="Type here" id="email" value="{{ old('email') }}" />
+            </div>
+            <div class="flex flex-col justify-center items-center gap-2">
+              <label for="password"
+                class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Password</label>
+              <input type="password" name="password" class="input bg-[#f7e6bc]" placeholder="******" id="password" />
+            </div>
 
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Buy Now</button>
+            <button class="btn btnImage mx-2 w-80">
+              Masuk
+            </button>
+          </form>
+
+          <div class="flex items-center gap-2 justify-center mt-5">
+            <span class="text-[#f7e6bc]">Belum punya akun?</span>
+            <a href="{{ route('register') }}" class="text-[#eaa743] font-bold">Daftar</a>
+          </div>
         </div>
       </div>
     </div>

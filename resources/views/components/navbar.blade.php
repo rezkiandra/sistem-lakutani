@@ -18,7 +18,7 @@
       </ul>
     </div>
     <a class="btn btn-ghost text-xl hover:bg-transparent" href="{{ route('home') }}">
-      <img src="{{ asset('assets/fonts/icons/icon.svg') }}" alt="" class="w-8">
+      <img src="{{ asset('assets/img/icon.png') }}" alt="" class="w-8 bg-[#f7e6bc]">
       <img src="{{ asset('assets/img/hero.png') }}" alt="" class="w-36">
     </a>
   </div>
@@ -42,7 +42,11 @@
       </li>
     </ul>
 
-    <a href="{{ route('login') }}" class="btn greenImage text-slate-200 border-green-950 border-2">Kelayakan</a>
-    <a href="{{ route('login') }}" class="btn bg-yellow-600 border-yellow-700 border-2">Login</a>
+    @if (Auth::check())
+      <a href="void(0)" class="btn greenImage text-slate-200 border-green-950 border-2">Kelayakan</a>
+      @include('components.confirm-alert')
+    @else
+      <a href="{{ route('login') }}" class="btn btnImage border-yellow-700 border-2">Login</a>
+    @endif
   </div>
 </div>
