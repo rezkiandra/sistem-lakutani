@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="{{ asset('assets/fonts/icons/icon.svg') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <title>@yield('title')</title>
+	@vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <style>
     @font-face {
@@ -24,7 +25,7 @@
       background-position: center;
       background-size: 110%;
     }
-		
+
     .bgImage2 {
       background-image: url('{{ asset('assets/img/bg2.png') }}');
       background-position: top center;
@@ -33,15 +34,16 @@
 
     .navImage {
       background: url('{{ asset('assets/img/wood.png') }}');
-      background-position: top -10px center;
-      background-size: 10%;
+      background-position: top center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
 
     .cardImage {
       background-image: url('{{ asset('assets/img/bg2.png') }}');
       background-position: top center;
       background-size: cover;
-			background-repeat: no-repeat;
+      background-repeat: no-repeat;
     }
 
     .woodImage {
@@ -62,11 +64,11 @@
       background-size: cover;
     }
 
-		.btnImage {
-			background: url('{{ asset('assets/img/yellow.png') }}');
-			background-position: center;
-			background-size: cover;
-		}
+    .btnImage {
+      background: url('{{ asset('assets/img/yellow.png') }}');
+      background-position: center;
+      background-size: cover;
+    }
   </style>
   @stack('css')
 
@@ -75,9 +77,9 @@
 
 <body class="bgImage2">
   <div class="mx-auto">
-    @include('components.navbar')
+		@include('components.navbar')
     @yield('content')
-		@include('components.toast')
+    @include('components.toast')
   </div>
 
   @stack('js')

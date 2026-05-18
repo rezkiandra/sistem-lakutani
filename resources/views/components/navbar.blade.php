@@ -1,52 +1,94 @@
-<div class="navbar shadow-sm navImage absolute">
-  <div class="navbar-start">
-    <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </div>
-      <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Home</a></li>
-        <li>
-          <a>Berita</a>
-          <ul class="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
+<div class="absolute w-full">
+  <nav class="navbar shadow-base-300/20 shadow-sm navImage">
+    <div class="navbar-start">
+      <a class="flex items-center justify-center gap-4 link text-base-content link-neutral text-xl font-bold no-underline"
+        href="{{ route('home') }}">
+        {{-- <img src="{{ asset('assets/img/icon.png') }}" alt="icon" class="bg-transparent w-12"> --}}
+        <img src="{{ asset('assets/img/hero.png') }}" alt="banner" class="bg-transparent w-40">
+      </a>
+    </div>
+    <div class="navbar-center">
+      <ul class="menu menu-horizontal gap-2 p-0 text-base hover:text-red-500">
+        <li class="text-slate-100"><a href="{{ route('home') }}">Home</a></li>
+        <li class="text-slate-100"><a href="{{ route('layanan') }}">About</a></li>
+        <li class="text-slate-100"><a href="{{ route('layanan') }}">Layanan</a></li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl hover:bg-transparent" href="{{ route('home') }}">
-      <img src="{{ asset('assets/img/icon.png') }}" alt="" class="w-8 bg-[#f7e6bc]">
-      <img src="{{ asset('assets/img/hero.png') }}" alt="" class="w-36">
-    </a>
-  </div>
-
-  <div class="navbar-end gap-4">
-    <ul class="menu menu-horizontal px-8">
-      <li class="font-bold text-slate-200">
-        <a href="{{ route('home') }}">Home</a>
-      </li>
-      {{-- <li class="font-bold text-slate-200">
-        <details>
-          <summary>Berita</summary>
-          <ul class="p-2 bg-base-100 w-40 z-1">
-            <li class="font-bold text-slate-800"><a>Submenu 1</a></li>
-            <li class="font-bold text-slate-800"><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li> --}}
-      <li class="font-bold text-slate-200">
-        <a href="{{ route('layanan') }}">Layanan</a>
-      </li>
-    </ul>
-
-    @if (Auth::check())
-      <a href="void(0)" class="btn greenImage text-slate-200 border-green-950 border-2">Kelayakan</a>
-      @include('components.confirm-alert')
-    @else
-      <a href="{{ route('login') }}" class="btn btnImage border-yellow-700 border-2">Login</a>
-    @endif
-  </div>
+    <div class="navbar-end items-center gap-4">
+      <div class="dropdown relative inline-flex [--placement:bottom] md:hidden">
+        <button id="dropdown-default" type="button" class="dropdown-toggle btn btn-text btn-secondary btn-square"
+          aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+          <span class="icon-[tabler--menu-2] dropdown-open:hidden size-5"></span>
+          <span class="icon-[tabler--x] dropdown-open:block hidden size-5"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu" aria-orientation="vertical"
+          aria-labelledby="dropdown-default">
+          <li class="dropdown relative [--auto-close:inside] [--offset:9] [--placement:bottom]">
+            <button id="dropdown-end-2"
+              class="dropdown-toggle dropdown-item dropdown-open:bg-base-content/10 dropdown-open:text-base-content justify-between"
+              aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+              Products
+              <span class="icon-[tabler--chevron-right] size-4 rtl:rotate-180"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-open:opacity-100 hidden w-48" role="menu" aria-orientation="vertical"
+              aria-labelledby="nested-dropdown">
+              <li><a class="dropdown-item" href="#">Templates</a></li>
+              <li><a class="dropdown-item" href="#">UI kits</a></li>
+              <li
+                class="dropdown relative [--auto-close:inside] [--offset:10] md:[--placement:right-start] [--placement:bottom]">
+                <button id="nested-dropdown-2"
+                  class="dropdown-toggle dropdown-item dropdown-open:bg-base-content/10 dropdown-open:text-base-content justify-between"
+                  aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                  Components
+                  <span class="icon-[tabler--chevron-right] size-4 rtl:rotate-180"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-open:opacity-100 hidden w-48" role="menu"
+                  aria-orientation="vertical" aria-labelledby="nested-dropdown-2">
+                  <li><a class="dropdown-item" href="#">Basic</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Advanced
+                      <span class="badge badge-sm badge-soft badge-primary rounded-full">Pro</span>
+                    </a>
+                  </li>
+                  <li
+                    class="dropdown relative [--auto-close:inside] [--offset:10] md:[--placement:right-start] [--placement:bottom]">
+                    <button id="nested-dropdown-2"
+                      class="dropdown-toggle dropdown-item dropdown-open:bg-base-content/10 dropdown-open:text-base-content justify-between"
+                      aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                      Vendor
+                      <span class="icon-[tabler--chevron-right] size-4 rtl:rotate-180"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-open:opacity-100 hidden w-48" role="menu"
+                      aria-orientation="vertical" aria-labelledby="nested-dropdown-2">
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Data tables
+                          <span class="badge badge-sm badge-soft badge-primary rounded-full">Pro</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Apex charts
+                          <span class="badge badge-sm badge-soft badge-primary rounded-full">Pro</span>
+                        </a>
+                      </li>
+                      <li><a class="dropdown-item" href="#">Clipboard</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      @if (Auth::check())
+        @include('components.confirm-alert')
+      @else
+        <a class="btn btnImage" href="{{ route('login') }}">
+          Login
+        </a>
+      @endif
+    </div>
+  </nav>
 </div>

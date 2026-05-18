@@ -5,7 +5,8 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-@plugin "daisyui";
+@import "tailwindcss";
+@plugin "flyonui";
 
 @theme {
 	--font-sans:

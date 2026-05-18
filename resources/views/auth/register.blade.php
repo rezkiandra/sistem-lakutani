@@ -16,21 +16,21 @@
             @csrf
             <div class="flex flex-col justify-center items-center gap-2">
               <label for="name" class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Username</label>
-              <input type="text" name="name" class="input bg-[#f7e6bc]" placeholder="Type here" id="name" value="{{ old('name') }}" />
+              <input type="text" name="name" class="input bg-[#f7e6bc] w-80" placeholder="Type here" id="name" value="{{ old('name') }}" />
             </div>
             <div class="flex flex-col justify-center items-center gap-2">
               <label for="email" class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Email</label>
-              <input type="email" name="email" class="input bg-[#f7e6bc]" placeholder="Type here" id="email" value="{{ old('email') }}" />
+              <input type="email" name="email" class="input bg-[#f7e6bc] w-80" placeholder="Type here" id="email" value="{{ old('email') }}" />
             </div>
             <div class="flex flex-col justify-center items-center gap-2">
               <label for="password"
                 class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Password</label>
-              <input type="password" name="password" class="input bg-[#f7e6bc]" placeholder="******" id="password" />
+              <input type="password" name="password" class="input bg-[#f7e6bc] w-80" placeholder="******" id="password" />
             </div>
 						<div class="flex flex-col justify-center items-center gap-2">
 							<label for="password_confirmation"
 								class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Konfirmasi Password</label>
-							<input type="password" name="password_confirmation" class="input bg-[#f7e6bc]" placeholder="******" id="password_confirmation" />
+							<input type="password" name="password_confirmation" class="input bg-[#f7e6bc] w-80" placeholder="******" id="password_confirmation" />
 						</div>
 
             <button type="submit" class="btn btnImage mx-2 w-80">

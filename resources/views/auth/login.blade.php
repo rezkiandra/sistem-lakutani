@@ -15,12 +15,12 @@
             @csrf
             <div class="flex flex-col justify-center items-center gap-2">
               <label for="email" class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Email</label>
-              <input type="email" name="email" class="input bg-[#f7e6bc]" placeholder="Type here" id="email" value="{{ old('email') }}" />
+              <input type="email" name="email" class="input bg-[#f7e6bc] w-80" placeholder="Type here" id="email" value="{{ old('email') }}" />
             </div>
             <div class="flex flex-col justify-center items-center gap-2">
               <label for="password"
                 class="label text-[#f7e6bc] shadow-lg font-bold text-md self-start pl-2">Password</label>
-              <input type="password" name="password" class="input bg-[#f7e6bc]" placeholder="******" id="password" />
+              <input type="password" name="password" class="input bg-[#f7e6bc] w-80" placeholder="******" id="password" />
             </div>
 
             <button class="btn btnImage mx-2 w-80">
