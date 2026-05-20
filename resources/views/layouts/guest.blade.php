@@ -3,7 +3,7 @@
 <shead>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ asset('assets/fonts/icons/icon.svg') }}">
+  <link rel="stylesheet" href="{{ asset('assets/img/icon.png') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
   <title>@yield('title')</title>
 	@vite(['resources/css/app.css', 'resources/js/app.js'])

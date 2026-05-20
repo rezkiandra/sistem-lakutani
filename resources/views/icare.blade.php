@@ -1,11 +1,11 @@
 @extends('layouts.guest')
-@section('title', 'Layanan')
+@section('title', 'I-Care')
 
 @section('content')
   <div class="container mx-auto text-center pt-16 min-h-screen flex items-center justify-center">
     <div class="flex flex-col items-center justify-center">
       <div class="pb-16">
-        <h1 class="text-5xl font-extrabold text-green-950">Koperasi Usaha Tani</h1>
+        <h1 class="text-5xl font-extrabold text-green-950">Program iCare</h1>
         <hr class="my-8 border-slate-800">
         <p class="text-3xl font-semibold text-green-950">Solusi Terpadu untuk Meningkatkan Produktivitas Petani</p>
       </div>

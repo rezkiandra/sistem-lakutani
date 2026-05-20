@@ -1,5 +1,5 @@
 @extends('layouts.guest')
-@section('title', 'Layanan')
+@section('title', 'Informasi')
 
 @section('content')
   <div class="container mx-auto text-center pt-16 min-h-screen flex items-center justify-center">
