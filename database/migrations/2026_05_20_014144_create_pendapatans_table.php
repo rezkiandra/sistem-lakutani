@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pendapatans', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->integer('padi');
+            $table->integer('hasil_samping');
             $table->timestamps();
         });
     }

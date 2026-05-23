@@ -7,7 +7,7 @@
     type="{{ $type }}"
     name="{{ $name }}" 
     placeholder="{{ $placeholder }}" 
-    class="input @error($name) border-red-500 @enderror"
+    class="input @error($name) border-red-500 @enderror {{ $class }}"
     value="{{ old($name, $value ?? '') }}"
     autocomplete="off" 
     {{ $required ? 'required' : '' }}

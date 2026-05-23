@@ -13,6 +13,7 @@ class FormInput extends Component
         public string $name,
         public string $type        = 'text',
         public string $placeholder = '...',
+        public string $class       = '',
         public bool   $required    = false,  // ← default false,
         public mixed  $value       = null,   // ← tambah ini tidak wajib diisi
     ) {}
