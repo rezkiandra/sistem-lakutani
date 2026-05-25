@@ -1,14 +1,9 @@
 <?php
 
-use App\Http\Controllers\AnalisisController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuestController;
-use App\Http\Controllers\LabaController;
-use App\Http\Controllers\PendapatanController;
-use App\Http\Controllers\ProduksiController;
-use App\Http\Controllers\RugiController;
-use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\UsahaTaniController;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(GuestController::class)->group(function () {
@@ -30,15 +25,15 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
 });
 
-Route::controller(WeatherController::class)->group(function () {
-    Route::get('/weather', 'index')->name('weather');
-});
-
-
 Route::prefix('admin')->group(function () {
-    Route::resource('produksi', ProduksiController::class);;
-    Route::resource('pendapatan', PendapatanController::class);;
-    Route::resource('laba', LabaController::class);;
-    Route::resource('rugi', RugiController::class);;
-    Route::resource('analisis', AnalisisController::class);;
+    Route::controller(UsahaTaniController::class)->group(function () {
+        Route::get('/produksi/create', 'createProduksi')->name('createProduksi');
+        Route::post('/produksi', 'storeProduksi')->name('storeProduksi');
+        
+        Route::get('/produksi/{produksi}/pendapatan/create', 'createPendapatan')->name('createPendapatan');
+        Route::post('/pendapatan/{produksi}', 'storePendapatan')->name('storePendapatan');
+
+        Route::get('/pendapatan/{pendapatan}/laba-rugi/create', 'createLabaRugi')->name('createLabaRugi');
+        Route::post('/laba-rugi/{pendapatan}', 'storeLabaRugi')->name('storeLabaRugi');
+    });
 });

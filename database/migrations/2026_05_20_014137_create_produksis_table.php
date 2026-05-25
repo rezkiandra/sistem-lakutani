@@ -13,19 +13,24 @@ return new class extends Migration
     {
         Schema::create('produksis', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('hasil_panen');
-            $table->integer('konsumsi_sendiri');
+            $table->string('nama_petani')->nullable();
 
-            $table->integer('zakat')->default(0);
-            $table->integer('sewa_lahan')->default(0);
-            $table->integer('input_usaha_tani')->default(0);
-            $table->integer('layanan_lain')->default(0);
-            $table->integer('lain_lain')->default(0);
+            $table->decimal('hasil_panen_padi_kg', 10, 2)->default(0);
 
-            $table->integer('padi_terjual');
+            // Alokasi padi yang dipanen
+            $table->decimal('konsumsi_sendiri_kg', 10, 2)->default(0);
+            $table->decimal('zakat_kg', 10, 2)->default(0);
+            $table->decimal('sewa_lahan_kg', 10, 2)->default(0);
+            $table->decimal('input_usaha_tani_kg', 10, 2)->default(0);
+            $table->decimal('layanan_lain_kg', 10, 2)->default(0);
+            $table->decimal('lain_lain_kg', 10, 2)->default(0);
 
-            $table->integer('beras_terjual')->default(0);
+            // Hasil produksi yang terjual
+            $table->decimal('padi_terjual_kg', 10, 2)->default(0);
+            $table->decimal('beras_terjual_kg', 10, 2)->default(0);
+
             $table->timestamps();
+
         });
     }
 

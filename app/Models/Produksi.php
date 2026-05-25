@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class Produksi extends Model
 {
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     public static function boot()
@@ -19,14 +20,26 @@ class Produksi extends Model
     }
 
     protected $fillable = [
-        'hasil_panen',
-        'konsumsi_sendiri',
-        'zakat',
-        'sewa_lahan',
-        'input_usaha_tani',
-        'layanan_lain',
-        'lain_lain',
-        'padi_terjual',
-        'beras_terjual'
+        'nama_petani',
+        'hasil_panen_padi_kg',
+        'konsumsi_sendiri_kg',
+        'zakat_kg',
+        'sewa_lahan_kg',
+        'input_usaha_tani_kg',
+        'layanan_lain_kg',
+        'lain_lain_kg',
+        'padi_terjual_kg',
+        'beras_terjual_kg',
     ];
+
+    public function getUuidRouteName()
+    {
+        return Str::uuid();
+    }
+
+    public function pendapatan()
+    {
+        return $this->hasOne(Pendapatan::class, 'produksi_id');
+    }
 }
+

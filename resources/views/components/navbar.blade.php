@@ -17,24 +17,8 @@
       @endguest
 
       @auth
-        <div class="dropdown relative inline-flex">
-          <button id="dropdown-default" type="button" class="flex self-center items-center gap-1 dropdown-toggle text-base text-slate-100" aria-haspopup="menu"
-            aria-expanded="false" aria-label="Dropdown">
-            Keuangan
-            <i class="ti ti-chevron-down"></i>
-            <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-          </button>
-          <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu" aria-orientation="vertical"
-            aria-labelledby="dropdown-default">
-            <li><a class="dropdown-item" href="{{ route('produksi.index') }}">Produksi</a></li>
-            <li><a class="dropdown-item" href="{{ route('pendapatan.index') }}">Pendapatan</a></li>
-            <li><a class="dropdown-item" href="{{ route('laba.index') }}">Laba</a></li>
-            <li><a class="dropdown-item" href="{{ route('rugi.index') }}">Rugi</a></li>
-          </ul>
-        </div>
-
         <ul class="menu menu-horizontal gap-2 p-0 text-base hover:text-red-500">
-          <li class="text-slate-100"><a href="{{ route('layanan') }}">Analisis</a></li>
+          <li class="text-slate-100"><a href="{{ route('createProduksi') }}">Analisis</a></li>
         </ul>
       @endauth
     </div>
