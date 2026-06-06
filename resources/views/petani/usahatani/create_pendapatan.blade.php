@@ -4,7 +4,7 @@
 @section('title', 'Input Pendapatan')
 
 @section('content')
-  <div class="container mx-auto min-h-screen flex flex-col items-center justify-start">
+  <div class="container mx-auto min-h-screen flex flex-col items-center justify-">
     <div class="w-3/4 mt-20">
       <div class="card bg-base-200">
         <div class="card-header woodImage p-5">
@@ -44,7 +44,7 @@
             </div>
           @endif
 
-          <form action="{{ route('storePendapatan', $produksi->id) }}" method="POST">
+          <form action="{{ route('petani.storePendapatan', $produksi->id) }}" method="POST">
             @csrf
             <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
 
@@ -227,7 +227,7 @@
             </div>{{-- end grid --}}
 
             <div class="flex items-center justify-between mt-3 gap-2">
-              <a href="{{ route('createProduksi') }}" class="btn w-1/2">← Kembali</a>
+              <a href="{{ route('petani.createProduksi') }}" class="btn w-1/2">← Kembali</a>
               <button type="submit" class="btn w-1/2 greenImage">Simpan & Lanjutkan</button>
             </div>
 

@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('produksis', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('nama_petani')->nullable();
+            $table->date('tanggal')->nullable();
 
             $table->decimal('hasil_panen_padi_kg', 10, 2)->default(0);
 

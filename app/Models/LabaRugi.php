@@ -46,4 +46,22 @@ class LabaRugi extends Model
         'total_pendapatan',
         'total_laba_rugi',
     ];
+
+    public function pendapatan()
+    {
+        return $this->belongsTo(Pendapatan::class, 'pendapatan_id');
+    }
+
+    /** Akses produksi melalui pendapatan */
+    public function produksi()
+    {
+        return $this->hasOneThrough(
+            Produksi::class,   // target
+            Pendapatan::class, // perantara
+            'id',              // PK di pendapatan
+            'id',              // PK di produksi
+            'pendapatan_id',   // FK di laba_rugi
+            'produksi_id',     // FK di pendapatan
+        );
+    }
 }

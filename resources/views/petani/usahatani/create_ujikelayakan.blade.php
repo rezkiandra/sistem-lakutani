@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Input Produksi')
+@section('title', 'Analisis Kelayakan Usaha Tani')
 
 @section('content')
   <div class="container mx-auto min-h-screen flex flex-col items-center justify-start">
@@ -10,27 +10,6 @@
           <h1 class="text-3xl font-bold text-slate-100 mb-1">🌾 Input Produksi</h1>
           <span class="text-sm text-slate-100">Langkah 1 dari 3 — isi data hasil panen dan alokasi padi</span>
         </div>
-
-        {{-- Step Indicator --}}
-        <ol class="mb-0 flex items-center gap-2 p-5">
-          <li class="flex items-center gap-2">
-            <span
-              class="btn flex size-7 items-center justify-center rounded-full bg-dark text-xs font-bold text-dark-content">1</span>
-            <span class="text-sm font-semibold text-dark">Produksi</span>
-          </li>
-          <li class="h-px flex-1 bg-base-content/20"></li>
-          <li class="flex items-center gap-2">
-            <span
-              class="btn flex size-7 items-center justify-center rounded-full bg-base-200 text-xs font-bold text-base-content/40">2</span>
-            <span class="text-sm text-base-content/40">Pendapatan</span>
-          </li>
-          <li class="h-px flex-1 bg-base-content/20"></li>
-          <li class="flex items-center gap-2">
-            <span
-              class="btn flex size-7 items-center justify-center rounded-full bg-base-200 text-xs font-bold text-base-content/40">3</span>
-            <span class="text-sm text-base-content/40">Laba / Rugi</span>
-          </li>
-        </ol>
 
         <div class="card-body">
           <form action="{{ route('storeProduksi') }}" method="POST">
@@ -50,7 +29,8 @@
                       </label>
                       <div class="input flex items-center">
                         <input type="number" name="hasil_panen_padi_kg" id="hasil_panen_padi_kg" class="grow"
-                          step="0.01" min="0" value="{{ old('hasil_panen_padi_kg') }}" placeholder="Contoh: 500" required>
+                          step="0.01" min="0" value="{{ old('hasil_panen_padi_kg') }}" placeholder="Contoh: 500"
+                          required>
                         <span class="text-base-content/50 text-sm">kg</span>
                       </div>
                       @error('hasil_panen_padi_kg')
@@ -168,39 +148,3 @@
     </div>
   </div>
 @endsection
-
-@push('js')
-  <script>
-    function formatKg(angka) {
-      return new Intl.NumberFormat('id-ID').format(Math.round(angka)) + ' kg';
-    }
-
-    function hitung() {
-      const totalPanen = parseFloat(document.getElementById('hasil_panen_padi_kg').value) || 0;
-      const alokasi = document.querySelectorAll('.alokasi');
-      let totalAlokasi = 0;
-
-      alokasi.forEach(el => {
-        totalAlokasi += parseFloat(el.value) || 0;
-      });
-
-      const sisa = totalPanen - totalAlokasi;
-
-      // Info box
-      document.getElementById('info_total_panen').textContent = formatKg(totalPanen);
-      document.getElementById('info_total_alokasi').textContent = '- ' + formatKg(totalAlokasi);
-      document.getElementById('info_sisa').textContent = formatKg(sisa < 0 ? 0 : sisa);
-
-      const elSisa = document.getElementById('info_sisa');
-      elSisa.className = sisa < 0 ? 'text-error font-semibold' : 'text-success font-semibold';
-
-      // Tabel alokasi
-      document.getElementById('total_alokasi_tabel').textContent = formatKg(totalAlokasi);
-    }
-
-    document.getElementById('hasil_panen_padi_kg')?.addEventListener('input', hitung);
-    document.querySelectorAll('.alokasi').forEach(el => el.addEventListener('input', hitung));
-
-    hitung();
-  </script>
-@endpush

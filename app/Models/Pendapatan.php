@@ -33,4 +33,10 @@ class Pendapatan extends Model
     {
         return $this->belongsTo(Produksi::class, 'produksi_id');
     }
+
+    /** Pendapatan punya satu laba_rugi */
+    public function labaRugi()
+    {
+        return $this->hasOne(LabaRugi::class, 'pendapatan_id');
+    }
 }
