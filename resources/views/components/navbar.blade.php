@@ -13,9 +13,10 @@
     <div class="hidden lg:flex items-center gap-4 navbar-end">
       {{-- Menu Utama selalu tampil di desktop --}}
       <ul class="menu menu-horizontal gap-4 p-0 text-base">
-        <li class="text-slate-100"><a href="{{ route('beranda') }}">Beranda</a></li>
+        {{-- <li class="text-slate-100"><a href="{{ route('beranda') }}">Beranda</a></li> --}}
         <li class="text-slate-100"><a href="{{ route('informasi') }}">Informasi</a></li>
         <li class="text-slate-100"><a href="{{ route('layanan') }}">Layanan</a></li>
+        <li class="text-slate-100"><a href="{{ route('cuaca') }}">iCare</a></li>
       </ul>
 
       <div class="flex items-center gap-2">
@@ -44,9 +45,10 @@
           role="menu" aria-orientation="vertical" aria-labelledby="hamburger-menu-mobile">
 
           {{-- Menu Publik Mobile (Selalu Tampil) --}}
-          <li><a href="{{ route('beranda') }}"><i class="ti ti-home text-lg"></i> Beranda</a></li>
+          {{-- <li><a href="{{ route('beranda') }}"><i class="ti ti-home text-lg"></i> Beranda</a></li> --}}
           <li><a href="{{ route('informasi') }}"><i class="ti ti-info-circle text-lg"></i> Informasi</a></li>
           <li><a href="{{ route('layanan') }}"><i class="ti ti-server text-lg"></i> Layanan</a></li>
+          <li><a href="{{ route('cuaca') }}"><i class="ti ti-temperature-sun text-lg"></i> iCare</a></li>
           <hr class="border-base-content/10 my-1">
 
           {{-- Tampilan Mobile Jika BELUM Login --}}

@@ -11,7 +11,7 @@ Route::controller(GuestController::class)->group(function () {
     Route::get('/', 'index')->name('beranda');
     Route::get('/informasi', 'informasi')->name('informasi');
     Route::get('/layanan', 'layanan')->name('layanan');
-    Route::get('/icare', 'icare')->name('icare');
+    Route::get('/cuaca', 'cuaca')->name('cuaca');
 });
 
 Route::middleware('guest')->group(function () {
