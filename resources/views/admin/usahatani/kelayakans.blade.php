@@ -4,27 +4,22 @@
 
 @section('content')
   <div class="container mx-auto min-h-screen flex flex-col items-center justify-start px-4">
-    <div class="w-full max-w-7xl mt-20 lg:mt-6 md:mt-20 mb-10">
+    <div class="w-full max-w-7xl mt-20 lg:mt-30 md:mt-20 mb-10">
 
       <div class="shadow-md bg-base-100 rounded-xl overflow-hidden">
-        {{-- Header --}}
+        {{-- ===== HEADER UTAMA ===== --}}
         <div class="woodImage p-4 md:p-5">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 class="text-2xl lg:text-3xl md:text-3xl font-bold text-slate-100 mb-1">🌾 Data Usaha Tani</h1>
               <span class="text-xs md:text-sm text-slate-100 block">Riwayat produksi, pendapatan, dan laba/rugi</span>
             </div>
-            <a href="{{ route('petani.createProduksi') }}"
-              class="btn btn-sm greenImage self-start sm:self-auto w-full sm:w-auto justify-center">
-              <i class="ti ti-tractor text-lg"></i>
-              Input Produksi Baru
-            </a>
           </div>
         </div>
 
         <div class="p-4 md:p-5">
 
-          {{-- Flash Message --}}
+          {{-- ===== FLASH MESSAGE ===== --}}
           @if (session('success'))
             <div class="alert alert-success mb-4 flex items-start gap-2">
               <i class="ti ti-check text-lg shrink-0 mt-0.5"></i>
@@ -32,14 +27,14 @@
             </div>
           @endif
 
-          {{-- ===== KARTU STATISTIK ===== --}}
+          {{-- ===== KARTU STATISTIK ATAS ===== --}}
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
 
             <div class="shadow-sm border border-base-content/10 bg-base-100 rounded-xl">
               <div class="p-4">
                 <div class="flex items-center gap-2 mb-1">
                   <i class="ti ti-cloud-fog text-lg text-warning"></i>
-                  <span class="text-xs text-base-content/50">Total Produksi</span>
+                  <span class="text-xs text-base-content/50">Total Record</span>
                 </div>
                 <p class="text-2xl font-bold text-warning">{{ $produksis->total() }}</p>
               </div>
@@ -84,12 +79,12 @@
 
           </div>
 
-          {{-- ===== TABEL DATA ===== --}}
+          {{-- ===== TABEL DATA UTAMA ===== --}}
           <div class="shadow-sm border border-base-content/10 bg-base-100 rounded-xl overflow-hidden">
             <div class="p-0">
               <div class="flex items-center gap-2 border-b border-base-content/10 px-4 py-3">
                 <i class="ti ti-tractor text-lg text-primary"></i>
-                <h3 class="font-semibold">Daftar Produksi</h3>
+                <h3 class="font-semibold">Daftar Produksi & Alur Kelayakan</h3>
               </div>
 
               <div class="overflow-x-auto w-full">
@@ -103,38 +98,45 @@
                       @endif
                       <th class="text-end py-3">Hasil Panen</th>
                       <th class="text-end py-3">Padi Terjual</th>
-                      <th class="text-end py-3">Pendapatan</th>
-                      <th class="text-end py-3">Pengeluaran</th>
                       <th class="text-end py-3">Laba / Rugi</th>
-                      <th class="py-3">Status</th>
+                      <th class="py-3">Status Kelengkapan</th>
                       <th class="text-center py-3">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
                     @forelse ($produksis as $index => $item)
                       @php
+                        // Ambil relasi data transaksi tingkat lanjut
                         $pendapatan = $item->pendapatan;
                         $labaRugi = $pendapatan?->labaRugi;
                         $lr = $labaRugi?->total_laba_rugi ?? null;
+
+                        // Mengunci penanda langkah pengisian data petani
                         $stepSelesai = 0;
                         if ($item->exists) {
-                            $stepSelesai = 1;
+                            $stepSelesai = 1; // Tahap Produksi Kelar
                         }
                         if ($pendapatan) {
-                            $stepSelesai = 2;
+                            $stepSelesai = 2; // Tahap Pendapatan Kelar
                         }
                         if ($labaRugi) {
-                            $stepSelesai = 3;
+                            $stepSelesai = 3; // Tahap Laba Rugi Kelar / Sempurna
                         }
                         $tglLabel = $item->created_at->isoFormat('D MMM Y');
                       @endphp
+
                       <tr class="hover:bg-base-200/40 border-b border-base-content/5">
+                        {{-- Nomor Urut Row --}}
                         <td class="text-base-content/40 text-sm font-medium">
                           {{ ($produksis->currentPage() - 1) * $produksis->perPage() + $index + 1 }}
                         </td>
+
+                        {{-- Tanggal Pembuatan --}}
                         <td class="whitespace-nowrap text-sm text-base-content/70">
                           {{ $tglLabel }}
                         </td>
+
+                        {{-- Identitas Jika Akun Admin --}}
                         @if (Auth::user()->isAdmin())
                           <td class="whitespace-nowrap">
                             <div class="flex items-center gap-2">
@@ -146,26 +148,34 @@
                             </div>
                           </td>
                         @endif
+
+                        {{-- Data Hasil Berat Tanam (Step 1) --}}
                         <td class="text-end font-medium text-warning whitespace-nowrap">
                           {{ number_format($item->hasil_panen_padi_kg, 0, ',', '.') }} kg
                         </td>
                         <td class="text-end text-sm whitespace-nowrap">
                           {{ number_format($item->padi_terjual_kg, 0, ',', '.') }} kg
                         </td>
+
+                        {{-- Data Hasil Penjualan Pasar (Step 2) --}}
                         <td class="text-end font-medium text-success whitespace-nowrap">
                           @if ($pendapatan)
                             Rp {{ number_format($pendapatan->total_pendapatan, 0, ',', '.') }}
                           @else
-                            <span class="text-base-content/30">—</span>
+                            <span class="text-base-content/30 italic text-xs">Belum diinput</span>
                           @endif
                         </td>
+
+                        {{-- Data Beban Biaya Modal Operasional (Step 3) --}}
                         <td class="text-end font-medium text-error whitespace-nowrap">
                           @if ($labaRugi)
                             Rp {{ number_format($labaRugi->total_pengeluaran_produksi, 0, ',', '.') }}
                           @else
-                            <span class="text-base-content/30">—</span>
+                            <span class="text-base-content/30 italic text-xs">Belum diinput</span>
                           @endif
                         </td>
+
+                        {{-- Kalkulasi Laba / Rugi Bersih Final --}}
                         <td class="text-end font-bold whitespace-nowrap">
                           @if ($lr !== null)
                             <span class="{{ $lr >= 0 ? 'text-success' : 'text-error' }}">
@@ -176,60 +186,74 @@
                           @endif
                         </td>
 
-                        {{-- Status --}}
+                        {{-- Kolom Badge Pemantau Tahapan Formulir --}}
                         <td class="whitespace-nowrap">
                           @if ($stepSelesai === 3)
-                            <span class="badge badge-soft badge-success text-xs">Lengkap</span>
+                            <span
+                              class="badge badge-success bg-success/10 text-success border-success/20 text-xs font-semibold px-2.5 py-1">
+                              Lengkap
+                            </span>
                           @elseif ($stepSelesai === 2)
-                            <span class="badge badge-soft badge-warning text-xs">Step 3 kurang</span>
+                            <span
+                              class="badge badge-warning bg-warning/10 text-warning border-warning/20 text-xs font-semibold px-2.5 py-1">
+                              Step 2 (Kurang Laba/Rugi)
+                            </span>
                           @elseif ($stepSelesai === 1)
-                            <span class="badge badge-soft badge-error text-xs">Step 2 & 3 kurang</span>
+                            <span
+                              class="badge badge-error bg-error/10 text-error border-error/20 text-xs font-semibold px-2.5 py-1">
+                              Step 1 (Baru Produksi)
+                            </span>
                           @endif
                         </td>
 
-                        {{-- Tombol Aksi --}}
+                        {{-- Opsi Penanganan Aksi Transaksi --}}
                         <td>
                           <div class="flex items-center justify-center gap-1">
 
+                            {{-- Mengarahkan Petani Berdasarkan Tangga Input Data --}}
                             @if ($stepSelesai === 1)
                               <a href="{{ route('petani.createPendapatan', $item->id) }}"
-                                class="btn btn-xs btn-warning gap-1" title="Input Pendapatan">
-                                <i class="ti ti-arrow-forward text-sm"></i>Lanjut
+                                class="btn btn-xs btn-warning gap-1 font-semibold text-stone-800"
+                                title="Input Pendapatan">
+                                <i class="ti ti-arrow-forward text-sm"></i> Isi Step 2
                               </a>
                             @elseif ($stepSelesai === 2)
                               <a href="{{ route('petani.createLabaRugi', $pendapatan->id) }}"
-                                class="btn btn-xs btn-warning gap-1" title="Input Laba/Rugi">
-                                <i class="ti ti-arrow-forward text-sm"></i>Lanjut
+                                class="btn btn-xs btn-warning gap-1 font-semibold text-stone-800" title="Input Laba/Rugi">
+                                <i class="ti ti-arrow-forward text-sm"></i> Isi Step 3
                               </a>
                             @endif
 
+                            {{-- Tombol Khusus Terbuka Jika Step 3 (Lengkap) Terpenuhi --}}
                             @if ($stepSelesai === 3)
-                              <a href="{{ route('petani.hasilAnalisis', $item->id) }}"
-                                class="btn btn-xs btn-ghost text-info p-1" title="Lihat Analisis">
+                              <a href="{{ route('admin.hasilAnalisis', $item->id) }}"
+                                class="btn btn-xs btn-ghost text-info p-1 hover:bg-info/10" title="Lihat Analisis">
                                 <i class="ti ti-eye text-base"></i>
                               </a>
-                              <a href="{{ route('petani.ujiKelayakan', $item->id) }}"
-                                class="btn btn-xs btn-ghost text-success p-1" title="Uji Kelayakan">
+                              <a href="{{ route('admin.ujiKelayakan', $item->id) }}"
+                                class="btn btn-xs btn-outline btn-success text-xs px-2 font-bold"
+                                title="Uji Kelayakan Per Data">
                                 <i class="ti ti-check text-base"></i>
                               </a>
                             @endif
 
-                            <a href="{{ route('petani.editProduksi', $item->id) }}"
-                              class="btn btn-xs btn-ghost text-warning p-1" title="Edit">
+                            {{-- Tombol Utama Penyuntingan & Penghapusan --}}
+                            {{-- <a href="{{ route('petani.editProduksi', $item->id) }}"
+                              class="btn btn-xs btn-ghost text-warning p-1 hover:bg-warning/10" title="Edit">
                               <i class="ti ti-pencil text-base"></i>
                             </a>
 
-                            {{-- Form hapus — tanpa onsubmit, pakai id unik --}}
                             <form id="form-hapus-{{ $item->id }}"
                               action="{{ route('petani.destroyProduksi', $item->id) }}" method="POST"
                               class="inline-block">
                               @csrf
                               @method('DELETE')
-                              <button type="button" class="btn btn-xs btn-ghost text-error p-1" title="Hapus"
+                              <button type="button" class="btn btn-xs btn-ghost text-error p-1 hover:bg-error/10"
+                                title="Hapus"
                                 onclick="konfirmasiHapus('form-hapus-{{ $item->id }}', '{{ $tglLabel }}')">
                                 <i class="ti ti-trash text-base"></i>
                               </button>
-                            </form>
+                            </form> --}}
 
                           </div>
                         </td>
@@ -240,7 +264,7 @@
                           class="text-center text-base-content/40 py-12">
                           <div class="flex flex-col items-center justify-center gap-2">
                             <i class="ti ti-tractor text-3xl opacity-40"></i>
-                            <p>Belum ada data produksi.</p>
+                            <p>Belum ada data produksi usaha tani.</p>
                             <a href="{{ route('petani.createProduksi') }}"
                               class="text-primary underline text-sm font-medium">
                               Input sekarang
@@ -253,7 +277,7 @@
                 </table>
               </div>
 
-              {{-- Pagination --}}
+              {{-- Paginator Halaman Bawah Tabel --}}
               @if ($produksis->hasPages())
                 <div class="p-4 border-t border-base-content/10 bg-base-200/20">
                   {{ $produksis->links() }}

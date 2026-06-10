@@ -4,19 +4,15 @@
 
 @section('content')
   <div class="container mx-auto min-h-screen flex flex-col items-center justify-start px-4">
-    {{-- Mengubah w-3/4 statis menjadi w-full dengan batas maksimal max-w-5xl agar pas di semua ukuran layar --}}
-    <div class="w-full max-w-7xl mt-20 lg:mt-10 md:mt-20 mb-10">
+    <div class="w-full max-w-7xl mt-6 md:mt-20 mb-10 lg:my-24 my-24">
 
       {{-- Header --}}
       <div class="card bg-base-200 mb-4">
         <div class="card-header woodImage p-4 md:p-5">
-          {{-- Flex dirubah jadi col pada mobile, dan row pada desktop --}}
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 class="text-xl md:text-3xl lg:text-2xl font-bold text-slate-100 mb-1">📈 Analisis Kelayakan Usaha Tani
-              </h1>
-              <span class="text-xs md:text-sm text-slate-100 block sm:inline">ROI · R/C Ratio · BEP Harga · BEP
-                Volume</span>
+              <h1 class="text-xl md:text-3xl lg:text-2xl font-bold text-slate-100 mb-1">📈 Analisis Kelayakan Usaha Tani</h1>
+              <span class="text-xs md:text-sm text-slate-100 block sm:inline">ROI · R/C Ratio · BEP Harga · BEP Volume</span>
             </div>
             <a href="{{ url()->previous() }}" class="btn btn-sm btn-ghost text-slate-100 self-start sm:self-auto">
               <i class="ti ti-arrow-left"></i>
@@ -56,12 +52,9 @@
         @endphp
 
         <div class="px-4 md:px-5 pb-4 md:pb-5 pt-2">
-          {{-- Layout flex disesuaikan dari atas-bawah (mobile) ke kiri-kanan (desktop) --}}
-          <div
-            class="rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 {{ $layak ? 'bg-success/10 border border-success/30' : 'bg-error/10 border border-error/30' }}">
+          <div class="rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 {{ $layak ? 'bg-success/10 border border-success/30' : 'bg-error/10 border border-error/30' }}">
             <div class="flex items-start gap-3">
-              <span
-                class="{{ $layak ? 'ti ti-check text-success' : 'ti ti-close text-error' }} text-2xl md:text-3xl mt-0.5 sm:mt-0"></span>
+              <span class="{{ $layak ? 'ti ti-check text-success' : 'ti ti-close text-error' }} text-2xl md:text-3xl mt-0.5 sm:mt-0"></span>
               <div>
                 <p class="text-sm font-medium {{ $layak ? 'text-success' : 'text-error' }}">
                   Usaha tani ini {{ $layak ? 'Layak' : 'Tidak Layak' }} dijalankan
@@ -82,7 +75,6 @@
       </div>
 
       {{-- ===== 4 METRIK UTAMA ===== --}}
-      {{-- Menggunakan grid-cols-1 di layar kecil, grid-cols-2 di tablet, dan grid-cols-4 di desktop besar --}}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
 
         {{-- ROI --}}
@@ -123,8 +115,7 @@
             <p class="text-2xl font-bold text-warning">
               Rp {{ number_format($bepHarga, 0, ',', '.') }}
             </p>
-            <span
-              class="badge badge-soft {{ $hargaJual >= $bepHarga ? 'badge-success' : 'badge-error' }} text-xs mt-1 w-fit">
+            <span class="badge badge-soft {{ $hargaJual >= $bepHarga ? 'badge-success' : 'badge-error' }} text-xs mt-1 w-fit">
               {{ $hargaJual >= $bepHarga ? 'Harga jual aman' : 'Harga jual di bawah BEP' }}
             </span>
             <p class="text-xs text-base-content/40 mt-2">Harga minimum per kg</p>
@@ -141,8 +132,7 @@
             <p class="text-2xl font-bold text-secondary">
               {{ number_format($bepVol, 0, ',', '.') }} kg
             </p>
-            <span
-              class="badge badge-soft {{ $volProduksi >= $bepVol ? 'badge-success' : 'badge-error' }} text-xs mt-1 w-fit">
+            <span class="badge badge-soft {{ $volProduksi >= $bepVol ? 'badge-success' : 'badge-error' }} text-xs mt-1 w-fit">
               {{ $volProduksi >= $bepVol ? 'Volume terjual aman' : 'Volume di bawah BEP' }}
             </span>
             <p class="text-xs text-base-content/40 mt-2">Volume minimum terjual</p>
@@ -196,8 +186,7 @@
                 <div class="rounded-lg bg-base-200/60 p-3 text-sm flex flex-col gap-1">
                   <div class="flex justify-between text-base-content/60 gap-2">
                     <span>Total Pendapatan</span>
-                    <span class="text-success font-medium text-right">Rp
-                      {{ number_format($totalPendapatan, 0, ',', '.') }}</span>
+                    <span class="text-success font-medium text-right">Rp {{ number_format($totalPendapatan, 0, ',', '.') }}</span>
                   </div>
                   <div class="flex justify-between text-base-content/60 gap-2">
                     <span>Total Biaya</span>
@@ -246,8 +235,7 @@
                     <span class="text-xs sm:text-sm">BEP = Biaya / Volume</span>
                     <span class="text-warning text-right">Rp {{ number_format($bepHarga, 0, ',', '.') }} / kg</span>
                   </div>
-                  <div
-                    class="mt-2 flex flex-col sm:flex-row sm:justify-between text-xs {{ $hargaJual >= $bepHarga ? 'text-success' : 'text-error' }} gap-0.5">
+                  <div class="mt-2 flex flex-col sm:flex-row sm:justify-between text-xs {{ $hargaJual >= $bepHarga ? 'text-success' : 'text-error' }} gap-0.5">
                     <span>Harga jual aktual</span>
                     <span class="font-semibold text-start sm:text-right">
                       Rp {{ number_format($hargaJual, 0, ',', '.') }} / kg
@@ -277,8 +265,7 @@
                     <span class="text-xs sm:text-sm">BEP = Biaya / Harga Jual</span>
                     <span class="text-secondary text-right">{{ number_format($bepVol, 0, ',', '.') }} kg</span>
                   </div>
-                  <div
-                    class="mt-2 flex flex-col sm:flex-row sm:justify-between text-xs {{ $volProduksi >= $bepVol ? 'text-success' : 'text-error' }} gap-0.5">
+                  <div class="mt-2 flex flex-col sm:flex-row sm:justify-between text-xs {{ $volProduksi >= $bepVol ? 'text-success' : 'text-error' }} gap-0.5">
                     <span>Volume terjual aktual</span>
                     <span class="font-semibold text-start sm:text-right">
                       {{ number_format($volProduksi, 0, ',', '.') }} kg
@@ -394,20 +381,18 @@
           </div>
         </div>
 
-      </div>{{-- end grid --}}
+      </div>
 
       {{-- Tombol Aksi --}}
-      <div class="flex flex-col sm:flex-row items-stretch justify-between mt-4 gap-2">
-        <a href="{{ url()->previous() }}"
-          class="btn w-full sm:w-1/2 order-2 sm:order-1 flex items-center justify-center">
-          <span class="icon-[tabler--arrow-left] size-4"></span>
+      <div class="flex flex-col sm:flex-row items-center justify-between mt-4 gap-2">
+        <a href="{{ url()->previous() }}" class="btn w-full sm:w-1/2 order-2 sm:order-1">
+          <i class="ti ti-arrow-left text-base"></i>
           Kembali
         </a>
-        <a href="{{ route('petani.cetakUjiKelayakan', $produksi->id) }}" target="_blank"
-          class="btn greenImage btn-md w-full sm:w-1/2 order-1 sm:order-2 flex items-center justify-center gap-2">
+        <button onclick="window.print()" class="btn w-full sm:w-1/2 greenImage order-1 sm:order-2">
           <i class="ti ti-printer text-base"></i>
           Cetak / Export
-        </a>
+        </button>
       </div>
 
     </div>

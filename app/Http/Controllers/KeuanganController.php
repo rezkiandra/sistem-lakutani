@@ -258,14 +258,16 @@ class KeuanganController extends Controller
 
             $saldo = 0;
             foreach ($transaksi as $t) {
+                // Hitung saldo berjalan dengan nilai asli numeric
                 $saldo += $t->jenis === 'pemasukan' ? $t->jumlah : -$t->jumlah;
+
                 fputcsv($file, [
                     Carbon::parse($t->tanggal)->format('d/m/Y'),
                     ucfirst($t->jenis),
                     $t->kategori,
-                    number_format($t->jumlah, 0, ',', '.'),
+                    $t->jumlah, // 🔴 UBAH: Jangan gunakan number_format di sini
                     $t->keterangan ?? '-',
-                    number_format($saldo, 0, ',', '.'),
+                    $saldo,     // 🔴 UBAH: Kirim angka mentah tanpa format titik (.)
                 ]);
             }
 

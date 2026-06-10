@@ -10,9 +10,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "barryvdh/laravel-dompdf": "*",
+        "dompdf/dompdf": "^3.1",
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
-        "rakibdevs/openweather-laravel-api": "^1.9"
+        "rakibdevs/openweather-laravel-api": "^1.9",
+        "vinkla/hashids": "^14.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

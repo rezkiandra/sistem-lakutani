@@ -60,4 +60,9 @@ class Produksi extends Model
             'pendapatan_id',   // FK di tabel laba_rugi
         );
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

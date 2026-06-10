@@ -7,9 +7,6 @@ use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\UsahaTaniController;
 use Illuminate\Support\Facades\Route;
 
-// ==========================================
-// PUBLIC ROUTES (Bisa diakses semua)
-// ==========================================
 Route::controller(GuestController::class)->group(function () {
     Route::get('/', 'index')->name('beranda');
     Route::get('/informasi', 'informasi')->name('informasi');
@@ -17,9 +14,6 @@ Route::controller(GuestController::class)->group(function () {
     Route::get('/icare', 'icare')->name('icare');
 });
 
-// ==========================================
-// GUEST ONLY
-// ==========================================
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
         Route::get('/login', 'login')->name('login');
@@ -29,15 +23,11 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-// ==========================================
-// AUTH — semua user yang sudah login
-// ==========================================
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/pengaturan', [AuthController::class, 'edit'])->name('profile.edit');
+    Route::put('/pengaturan', [AuthController::class, 'update'])->name('profile.update');
 
-    // ==========================================
-    // ADMIN ROUTES
-    // ==========================================
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::middleware('can:admin')
         ->prefix('admin')
         ->name('admin.')
@@ -45,12 +35,29 @@ Route::middleware('auth')->group(function () {
             Route::controller(DashboardController::class)->group(function () {
                 Route::get('/dashboard', 'index')->name('dashboard'); // admin.dashboard
                 Route::get('/users', 'users')->name('users');         // admin.users
+                Route::get('/produksis', 'produksis')->name('produksis'); // admin.produksis
+                Route::get('/keuangans', 'keuangans')->name('keuangans'); // admin.keuangans
+                Route::get('/kelayakans', 'kelayakans')->name('kelayakans'); // admin.kelayakans
+                Route::get('/laporan-keuangan', 'laporanKeuangan')->name('laporan-keuangan');
+                Route::get('/cetak-laporan-keuangan', 'cetakLaporanKeuangan')->name('cetak-laporan-keuangan');
+
+                Route::get('/hasil-analisis/{produksi}', 'hasilAnalisis')->name('hasilAnalisis');
+                Route::get('/hasil-analisis/{produksi}/cetak', 'cetakHasilAnalisis')->name('cetakHasilAnalisis');
+
+                Route::get('/uji-kelayakan/{produksi}', 'ujiKelayakan')->name('ujiKelayakan');
+                Route::get('/uji-kelayakan/{produksi}/cetak', 'cetakUjiKelayakan')->name('cetakUjiKelayakan');
+
+                Route::get('/users/create', 'createUser')->name('createUser');
+                Route::post('/users', 'storeUser')->name('storeUser');
+                Route::get('/users/{user}/edit', 'editUser')->name('editUser');
+                Route::put('/users/{user}', 'updateUser')->name('updateUser');
+                Route::delete('/users/{user}', 'destroyUser')->name('destroyUser');
+
+                Route::delete('/produksis/{produksi}', 'destroyProduksi')->name('destroyProduksi');
+                Route::delete('/kelayakans/{kelayakan}', 'destroyKelayakan')->name('destroyKelayakan');
             });
         });
 
-    // ==========================================
-    // PETANI ROUTES
-    // ==========================================
     Route::middleware('can:petani')
         ->prefix('petani')
         ->name('petani.')
@@ -85,7 +92,10 @@ Route::middleware('auth')->group(function () {
                 Route::delete('/laba-rugi/{labaRugi}', 'destroyLabaRugi')->name('destroyLabaRugi');
 
                 Route::get('/hasil-analisis/{produksi}', 'hasilAnalisis')->name('hasilAnalisis');
+                Route::get('/hasil-analisis/{produksi}/cetak', 'cetakHasilAnalisis')->name('cetakHasilAnalisis');
+
                 Route::get('/uji-kelayakan/{produksi}', 'ujiKelayakan')->name('ujiKelayakan');
+                Route::get('/uji-kelayakan/{produksi}/cetak', 'cetakUjiKelayakan')->name('cetakUjiKelayakan');
             });
 
             Route::controller(KeuanganController::class)->group(function () {

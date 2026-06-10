@@ -388,40 +388,42 @@
         @endif
 
         {{-- ===== NAVIGASI & AKSI BUTTON ===== --}}
-        <div
-          class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between lg:col-span-2 mt-4 gap-3 w-full">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 w-full mt-4 lg:col-span-2">
 
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-            <a href="{{ url()->previous() }}" class="btn btn-secondary btn-md flex items-center justify-center gap-2">
-              <i class="ti ti-arrow-left text-base"></i>
-              Kembali
+          {{-- KOLOM 1: Tombol Kembali --}}
+          <a href="{{ url()->previous() }}"
+            class="btn btn-secondary btn-md flex items-center justify-center gap-2 w-full">
+            <i class="ti ti-arrow-left text-base"></i>
+            Kembali
+          </a>
+
+          {{-- KOLOM 2: Tombol Uji Kelayakan --}}
+          @if ($labaRugi)
+            <a href="{{ route('admin.ujiKelayakan', $produksi->id) }}"
+              class="btn btn-info btn-md flex items-center justify-center gap-2 w-full">
+              <i class="ti ti-check text-base"></i>
+              Uji Kelayakan
             </a>
+          @else
+            {{-- Placeholder kosong / Tombol Disabled jika data belum lengkap agar grid tetap seimbang 3 kolom --}}
+            <button class="btn btn-md btn-disabled flex items-center justify-center gap-2 w-full" disabled>
+              <i class="ti ti-lock text-base"></i>
+              Belum Layak Uji
+            </button>
+          @endif
 
-            @if ($labaRugi)
-              <a href="{{ route('petani.createLabaRugi', $labaRugi->pendapatan->id) }}"
-                class="btn btn-warning btn-md flex items-center justify-center gap-2">
-                <i class="ti ti-pencil text-base"></i>
-                Edit Data
-              </a>
-
-              <a href="{{ route('petani.ujiKelayakan', $produksi->id) }}"
-                class="btn btn-info btn-md flex items-center justify-center gap-2">
-                <i class="ti ti-check text-base"></i>
-                Uji Kelayakan
-              </a>
-            @endif
-          </div>
-
-          <a href="{{ route('petani.cetakHasilAnalisis', $produksi->id) }}" target="_blank"
-            class="btn greenImage btn-md flex items-center justify-center gap-2 sm:w-auto">
+          {{-- KOLOM 3: Tombol Cetak --}}
+          <a href="{{ route('admin.cetakHasilAnalisis', $produksi->id) }}" target="_blank"
+            class="btn greenImage btn-md flex items-center justify-center gap-2 w-full">
             <i class="ti ti-printer text-base"></i>
             Cetak / Export
           </a>
 
         </div>
+      </div>
 
-      </div>{{-- end grid --}}
+    </div>{{-- end grid --}}
 
-    </div>
+  </div>
   </div>
 @endsection

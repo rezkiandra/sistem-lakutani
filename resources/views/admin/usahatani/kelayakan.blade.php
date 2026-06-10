@@ -1,3 +1,6 @@
+<div>
+  <!-- Let all your things have their places; let each part of your business have its time. - Benjamin Franklin -->
+</div>
 @extends('layouts.app')
 
 @section('title', 'Analisis Kelayakan Usaha Tani')
@@ -5,7 +8,7 @@
 @section('content')
   <div class="container mx-auto min-h-screen flex flex-col items-center justify-start px-4">
     {{-- Mengubah w-3/4 statis menjadi w-full dengan batas maksimal max-w-5xl agar pas di semua ukuran layar --}}
-    <div class="w-full max-w-7xl mt-20 lg:mt-10 md:mt-20 mb-10">
+    <div class="w-full max-w-7xl mt-20 lg:mt-20 md:mt-20 mb-10">
 
       {{-- Header --}}
       <div class="card bg-base-200 mb-4">
@@ -403,7 +406,7 @@
           <span class="icon-[tabler--arrow-left] size-4"></span>
           Kembali
         </a>
-        <a href="{{ route('petani.cetakUjiKelayakan', $produksi->id) }}" target="_blank"
+        <a href="{{ route('admin.cetakUjiKelayakan', $produksi->id) }}" target="_blank"
           class="btn greenImage btn-md w-full sm:w-1/2 order-1 sm:order-2 flex items-center justify-center gap-2">
           <i class="ti ti-printer text-base"></i>
           Cetak / Export

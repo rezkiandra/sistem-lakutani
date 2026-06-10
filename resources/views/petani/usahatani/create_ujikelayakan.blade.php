@@ -12,7 +12,7 @@
         </div>
 
         <div class="card-body">
-          <form action="{{ route('storeProduksi') }}" method="POST">
+          <form action="{{ route('petani.storeProduksi') }}" method="POST">
             @csrf
             <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
               {{-- Hasil Panen --}}

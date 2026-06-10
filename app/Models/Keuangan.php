@@ -38,4 +38,14 @@ class Keuangan extends Model
     {
         return $query->where('user_id', auth()->id());
     }
+
+    public function labaRugi()
+    {
+        return $this->hasOne(LabaRugi::class, 'pendapatan_id');
+    }
+
+    public function produksi()
+    {
+        return $this->belongsTo(Produksi::class, 'produksi_id');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LabaRugi;
 use App\Models\Pendapatan;
 use App\Models\Produksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -206,6 +207,38 @@ class UsahaTaniController extends Controller
         $labaRugi = $pendapatan?->labaRugi;
 
         return view('petani.usahatani.hasil', compact('produksi', 'pendapatan', 'labaRugi'));
+    }
+
+    public function cetakHasilAnalisis(Produksi $produksi)
+    {
+        $produksi->load(['pendapatan.labaRugi']);
+
+        $pendapatan = $produksi->pendapatan;
+        $labaRugi = $pendapatan?->labaRugi;
+
+        $pdf = Pdf::loadView('petani.usahatani.cetak', compact('produksi', 'pendapatan', 'labaRugi'))
+            ->setPaper('f4', 'landscape');
+
+        $filename = 'Hasil_Analisis_Usaha_Tani_'.$produksi->id.'_'.now()->format('Ymd').'.pdf';
+
+        return $pdf->stream($filename);
+    }
+
+    public function cetakUjiKelayakan(Produksi $produksi)
+    {
+        $produksi->load(['pendapatan.labaRugi']);
+
+        $pendapatan = $produksi->pendapatan;
+        $labaRugi = $pendapatan?->labaRugi;
+
+        $pdf = Pdf::loadView('petani.usahatani.cetak_kelayakan', compact('produksi', 'pendapatan', 'labaRugi'))
+            ->setPaper('a4', 'portrait');
+
+        // Beri nama file yang dinamis berdasarkan ID produksi dan tanggal hari ini
+        $filename = 'Analisis_Kelayakan_Usaha_Tani_'.$produksi->id.'_'.now()->format('Ymd').'.pdf';
+
+        // Stream PDF ke browser agar bisa langsung dilihat/dicetak oleh user
+        return $pdf->stream($filename);
     }
 
     public function createUjiKelayakan()
